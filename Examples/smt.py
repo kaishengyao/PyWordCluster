@@ -5,6 +5,7 @@ from Clustering import Clustering
 class smtWordClustering(object):
     def __init__(self):
         self.word2cls = {}
+        self.cls2wrd = {}
 
     def generateClustering(self, doc, ncls, tofile):
         '''
@@ -15,8 +16,8 @@ class smtWordClustering(object):
         :return: save to a file
         '''
         wordFreq = Clustering.freq_dict_from_doc(doc)
-        self.word2cls = Clustering.freq_to_cluster(wordFreq, ncls)
-        Clustering.write_dict_to_file(self.word2cls, tofile)
+        self.word2cls, self.cls2wrd = Clustering.freq_to_cluster(wordFreq, ncls)
+        Clustering.write_dict_of_list_to_file(self.cls2wrd, tofile)
 
 if __name__ == "__main__":
     sln = smtWordClustering()
@@ -26,6 +27,9 @@ if __name__ == "__main__":
     tofile = 'd:/data/smt/bitext_voc160000.en.100.word.cls'
     sln.generateClustering(doc, 100, tofile)
 
+    doc = 'd:/data/smt/bitext_voc80000.fr'
+    tofile = 'd:/data/smt/bitext_voc80000.fr.100.word.cls'
+    sln.generateClustering(doc, 100, tofile)
 
 
 
